@@ -6,7 +6,19 @@ module.exports = class Match extends BaseModel {
   }
 
   async getAllWithUserBets(userId) {
-    const res = await this.database.query(`SELECT m.*, uv.team_id selected_team_id FROM matches m LEFT JOIN user_votes uv ON uv.match_id = m.id AND uv.user_id = $1`, [userId]);
+    const res = await this.database.query(`SELECT m.*,
+                                                  TO_CHAR(m.timestamp, 'yyyy-mm-dd HH24:ii') AS timestamp,
+                                                  t1.name team_a_name,
+                                                  t2.name team_b_name,
+                                                  uv.team_id selected_team_id,
+                                                  CASE WHEN uv.team_id = m.team_a THEN 1 ELSE 0 END AS selected_team_a,
+                                                  CASE WHEN uv.team_id = m.team_b THEN 1 ELSE 0 END AS selected_team_b,
+                                                  CASE WHEN (m.timestamp > now() + INTERVAL '10 minute' AND uv.id IS NULL) THEN 1 ELSE 0 END AS availableForBet 
+                                           FROM matches m 
+                                           LEFT JOIN user_votes uv ON uv.match_id = m.id AND uv.user_id = $1
+                                           JOIN teams t1 ON t1.id = m.team_a
+                                           JOIN teams t2 ON t2.id = m.team_b
+                                           ORDER BY m.id DESC`, [userId]);
 
     return res.rows;
   }

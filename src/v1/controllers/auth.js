@@ -54,7 +54,7 @@ module.exports = {
       await createSession(
         user.id,
         getIp(req),
-        req.headers['user-agent']
+        req.headers['user-agent'] || ''
       )
     );
   },
@@ -87,7 +87,7 @@ module.exports = {
         await createSession(
           session.user_id,
           getIp(req),
-          req.headers['user-agent']
+          req.headers['user-agent'] || ''
         )
       );
     });
