@@ -1,0 +1,27 @@
+{
+  "name": "htest2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanPakhomov/htest2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IvanPakhomov/htest2/issues"
+  },
+  "homepage": "https://github.com/IvanPakhomov/htest2#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^7.17.1",
+    "sha1": "^1.1.1",
+    "uuid": "^3.3.3"
+  }
+}
